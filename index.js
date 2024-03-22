@@ -38,6 +38,8 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 // Parse application/json
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, "public")));
+
 app.post("/api/dataGetUser", async (req, res) => {
   try {
     // Retrieve the email and password from the request body
@@ -424,7 +426,6 @@ app.post("/api/getAppointment", async (req, res) => {
   }
 });
 
-
 app.post("/api/getDocPassAppointment", async (req, res) => {
   try {
     const { docEmail } = req.body;
@@ -538,8 +539,6 @@ app.post("/api/sendEmail", async (req, res) => {
   const data = await sendEmailCustom(email, msg, heading);
   res.send(data);
 });
-
-app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
