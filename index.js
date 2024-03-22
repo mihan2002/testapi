@@ -11,7 +11,7 @@ app.get("/api", (req, res) => {
 
 // Define a route for the '/api/node' endpoint
 app.get("/api/node", (req, res) => {
-  res.send("You did it!");
+  res.send("You did nigga it!");
 });
 
 // Define a port for the server to listen on
