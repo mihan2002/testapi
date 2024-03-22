@@ -23,6 +23,8 @@ const {
   deleteVetAccount,
 } = require("./dataBase");
 
+const path = require("path");
+
 const bodyParser = require("body-parser");
 const { sendEmail, sendEmailCustom } = require("./emailHandling");
 
@@ -531,12 +533,13 @@ app.post("/api/deleteVetAccount", async (req, res) => {
   }
 });
 
-const newLocal = "/api/sendEmail";
-app.post(newLocal, async (req, res) => {
+app.post("/api/sendEmail", async (req, res) => {
   const { email, msg, heading } = req.body;
   const data = await sendEmailCustom(email, msg, heading);
   res.send(data);
 });
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
