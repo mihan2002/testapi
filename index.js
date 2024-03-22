@@ -13,6 +13,9 @@ app.get("/api", (req, res) => {
 app.get("/api/node", (req, res) => {
   res.send("You did nigga it!");
 });
+app.get("/api/dew", (req, res) => {
+    res.send("oya kavada halo ");
+  });
 
 // Define a port for the server to listen on
 const PORT = process.env.PORT || 5000;
