@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 // Parse application/json
 app.use(bodyParser.json());
 
-app.use("/api/love", express.static(path.join(__dirname, "public")));
+app.use("/api/shhh", express.static(path.join(__dirname, "public")));
 
 app.post("/api/dataGetUser", async (req, res) => {
   try {
