@@ -6,7 +6,7 @@ const app = express();
 
 // Define a route for the '/api' endpoint
 app.get("/api", (req, res) => {
-  res.send("Hello from the Node.js server!");
+  res.send("whatsa up my bruh");
 });
 
 // Define a route for the '/api/node' endpoint
