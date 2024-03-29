@@ -418,59 +418,6 @@ app.post("/getAppointment", async (req, res) => {
   }
 });
 
-// API endpoint to receive user inputs and get predictions
-app.post("/predict", async (req, res) => {
-  // Extract user inputs from request body
-  const { Age, Temperature, Animal, Symptom1, Symptom2, Symptom3 } = req.body;
-
-  // Execute Python script
-  const pythonProcess = spawn("python", ["predict.py"], { stdio: "pipe" });
-
-  // Send input data to the Python process
-  const inputData = {
-    Age: Age[0],
-    Temperature: Temperature[0],
-    Animal: Animal[0],
-    Symptom1: Symptom1[0],
-    Symptom2: Symptom2[0],
-    Symptom3: Symptom3[0],
-  };
-
-  pythonProcess.stdin.write(JSON.stringify(inputData));
-  pythonProcess.stdin.end();
-
-  // Handle stdout data from the Python process
-  let predictedDisease = "";
-  let probability = "";
-
-  pythonProcess.stdout.on("data", (data) => {
-    const predictions = JSON.parse(data);
-    predictedDisease = predictions.predictedDisease;
-    probability = predictions.probability;
-  });
-
-  // Handle end of stdout data from the Python process
-  pythonProcess.stdout.on("end", () => {
-    // Send the predicted label to the frontend
-    console.log(predictedDisease);
-    console.log(probability);
-    res.json({ predictedDisease, probability }); // Send predictions back to frontend
-  });
-
-  // Handle stderr data from the Python process
-  pythonProcess.stderr.on("data", (data) => {
-    console.error(`Python stderr: ${data}`);
-    res.status(500).send("Error occurred"); // Send error response
-  });
-
-  // Handle Python process exit
-  pythonProcess.on("close", (code) => {
-    if (code !== 0) {
-      console.error(`Python process exited with code ${code}`);
-      res.status(500).send("Error occurred"); // Send error response
-    }
-  });
-});
 
 app.post("/getDocPassAppointment", async (req, res) => {
   try {
