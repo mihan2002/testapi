@@ -118,6 +118,11 @@ async function getDataVet(email, password) {
     let query = {};
     let dataArray = [];
 
+    if (email) {
+      query = { email: email };
+      const cursor = await collection.find(query); // Get the cursor for the query
+      dataArray = await cursor.toArray();
+    }
     if (email && password) {
       query = { email: email, password: password };
       const cursor = await collection.find(query); // Get the cursor for the query
@@ -339,7 +344,7 @@ async function updateUserData(
 async function updateVetData(
   prevEmail,
   fullName,
-  addressClinic,
+  addressOfTheClinic,
   fieldOfExpertise,
   email,
   password,
@@ -362,7 +367,7 @@ async function updateVetData(
       {
         $set: {
           fullName,
-          addressClinic,
+          addressOfTheClinic,
           fieldOfExpertise,
           email,
           mobileNumber,
@@ -475,7 +480,9 @@ async function getPastTreatments(email) {
     const pastTreatmentsCollection = database.collection("pastTreatments");
 
     // Assuming email is a field in the pastTreatments documents
-    const pastTreatments = await pastTreatmentsCollection.find({ email }).toArray();
+    const pastTreatments = await pastTreatmentsCollection
+      .find({ email })
+      .toArray();
 
     console.log("Past treatments retrieved successfully:", pastTreatments);
 
@@ -533,5 +540,5 @@ module.exports = {
   addPastTreatments,
   getPastTreatments,
   deleteUserAccount,
-  deleteVetAccount
+  deleteVetAccount,
 };
