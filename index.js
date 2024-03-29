@@ -53,7 +53,7 @@ app.post("/api/dataGetUser", async (req, res) => {
   }
 });
 
-app.post("/api/dataAddUser", async (req, res) => {
+app.post("/dataAddUser", async (req, res) => {
   try {
     // Retrieve the data parameters from the request
     const {
@@ -128,21 +128,21 @@ app.post("/api/dataAddUser", async (req, res) => {
   }
 });
 
-app.post("/api/recoverMailCodeSend", async (req, res) => {
+app.post("/recoverMailCodeSend", async (req, res) => {
   const email = req.body.email;
   const recoveryCode = generateRandomCode().toString(); // Convert recovery code to string
   await sendEmail(email, recoveryCode);
   res.json(recoveryCode);
 });
 
-app.post("/api/changeEmailUser", async (req, res) => {
+app.post("/changeEmailUser", async (req, res) => {
   const { email, password } = req.body;
   console.log(password);
   data = await updateUserPassword(email, password);
   res.send(data);
 });
 
-app.post("/api/dataGetVet", async (req, res) => {
+app.post("/dataGetVet", async (req, res) => {
   try {
     const { email, password } = req.body;
     console.log(email + " " + password);
@@ -157,7 +157,7 @@ app.post("/api/dataGetVet", async (req, res) => {
   }
 });
 
-app.post("/api/dataGetVets", async (req, res) => {
+app.post("/dataGetVets", async (req, res) => {
   try {
     const db = await connectToMongoDB();
     const data = await getDataVets();
@@ -169,7 +169,7 @@ app.post("/api/dataGetVets", async (req, res) => {
   }
 });
 
-app.post("/api/dataAddVet", async (req, res) => {
+app.post("/dataAddVet", async (req, res) => {
   try {
     // Retrieve the data parameters from the request
     const {
@@ -226,13 +226,13 @@ app.post("/api/dataAddVet", async (req, res) => {
   }
 });
 
-app.post("/api/changeEmailVet", async (req, res) => {
+app.post("/changeEmailVet", async (req, res) => {
   const { email, password } = req.body;
   data = await updateVetPassword(email, password);
   res.send(data);
 });
 
-app.post("/api/addPet", async (req, res) => {
+app.post("/addPet", async (req, res) => {
   try {
     const { name, description, contactNo, image } = req.body;
 
@@ -260,7 +260,7 @@ app.post("/api/addPet", async (req, res) => {
   }
 });
 
-app.post("/api/dataGetPets", async (req, res) => {
+app.post("/dataGetPets", async (req, res) => {
   try {
     await connectToMongoDB();
     const data = await getPetsData();
@@ -273,7 +273,7 @@ app.post("/api/dataGetPets", async (req, res) => {
   }
 });
 
-app.post("/api/bookAppointment", async (req, res) => {
+app.post("/bookAppointment", async (req, res) => {
   try {
     const { date, time, patientEmail, petType, vetEmail } = req.body;
 
@@ -310,7 +310,7 @@ app.post("/api/bookAppointment", async (req, res) => {
   }
 });
 
-app.post("/api/acceptAppointment", async (req, res) => {
+app.post("/acceptAppointment", async (req, res) => {
   try {
     const { vetEmail } = req.body;
 
@@ -326,7 +326,7 @@ app.post("/api/acceptAppointment", async (req, res) => {
   }
 });
 
-app.post("/api/updateUserData", async (req, res) => {
+app.post("/updateUserData", async (req, res) => {
   try {
     const {
       PrevEmail,
@@ -364,7 +364,7 @@ app.post("/api/updateUserData", async (req, res) => {
   }
 });
 
-app.post("/api/updateVetData", async (req, res) => {
+app.post("/updateVetData", async (req, res) => {
   try {
     const {
       prevEmail,
@@ -402,7 +402,7 @@ app.post("/api/updateVetData", async (req, res) => {
   }
 });
 
-app.post("/api/getAppointment", async (req, res) => {
+app.post("/getAppointment", async (req, res) => {
   try {
     const { userEmail } = req.body;
 
@@ -419,7 +419,7 @@ app.post("/api/getAppointment", async (req, res) => {
 });
 
 
-app.post("/api/getDocPassAppointment", async (req, res) => {
+app.post("/getDocPassAppointment", async (req, res) => {
   try {
     const { docEmail } = req.body;
     console.log(docEmail);
@@ -435,7 +435,7 @@ app.post("/api/getDocPassAppointment", async (req, res) => {
   }
 });
 
-app.post("/api/addPastTreatments", async (req, res) => {
+app.post("/addPastTreatments", async (req, res) => {
   try {
     const { email, date, ownerName, petName, petType, description, image } =
       req.body;
@@ -469,7 +469,7 @@ app.post("/api/addPastTreatments", async (req, res) => {
     });
   }
 });
-app.post("/api/getPastTreatments", async (req, res) => {
+app.post("/getPastTreatments", async (req, res) => {
   try {
     const { doctorEmail } = req.body; // Retrieve email from query parameters
 
@@ -495,7 +495,7 @@ app.post("/api/getPastTreatments", async (req, res) => {
   }
 });
 
-app.post("/api/deleteUserAccount", async (req, res) => {
+app.post("/deleteUserAccount", async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -511,7 +511,7 @@ app.post("/api/deleteUserAccount", async (req, res) => {
   }
 });
 
-app.post("/api/deleteVetAccount", async (req, res) => {
+app.post("/deleteVetAccount", async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -527,7 +527,7 @@ app.post("/api/deleteVetAccount", async (req, res) => {
   }
 });
 
-app.post("/api/sendEmail", async (req, res) => {
+app.post("/sendEmail", async (req, res) => {
   const { email, msg, heading } = req.body;
   const data = await sendEmailCustom(email, msg, heading);
   res.send(data);
