@@ -37,7 +37,7 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
 // Parse application/json
 app.use(bodyParser.json());
 
-app.post("/dataGetUser", async (req, res) => {
+app.post("/api/dataGetUser", async (req, res) => {
   try {
     // Retrieve the email and password from the request body
     const { email, password } = req.body;
